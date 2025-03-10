@@ -1,0 +1,103 @@
+
+# 쇼핑몰 회원정보 테이블 
+# 컬럼명 데이터 타입 제약조건 
+CREATE TABLE MEMBER (
+	MEM_ID VARCHAR(20) PRIMARY KEY
+	,MEM_PW VARCHAR(20) NOT NULL
+	,MEM_NAME VARCHAR(10)
+	,MEM_AGE INT DEFAULT 1
+	,MEM_TEL VARCHAR(15) UNIQUE # 중복 불가 
+	,JOIN_DATE DATETIME DEFAULT SYSDATE()
+
+);
+
+SELECT * FROM member;
+
+INSERT INTO member (MEM_ID, MEM_PW) VALUES ('KIM','1111');
+
+SELECT * FROM member;
+INSERT INTO member (MEM_ID,MEM_PW,MEM_NAME,JOIN_DATE) VALUES('OIM','1234','홍길동','2025-01-01');
+
+SELECT * FROM member;
+
+INSERT INTO member (MEM_ID,MEM_PW,MEM_NAME,JOIN_DATE) VALUES('PARK','1234','홍길동','2025-01-01 10:30:50');
+
+
+INSERT INTO member (MEM_ID,MEM_PW,MEM_NAME,JOIN_DATE) VALUES('ABC','1234','홍길동',20250101103050);
+COMMIT;
+
+
+# 데이터 삭제 
+# DELETE FROM 테이블명 WHERE 조건;
+
+DELETE FROM member WHERE MEM_NAME IS NULL;
+
+ROLLBACK;
+
+SELECT * FROM member;
+COMMIT;
+
+# 데이터 수정.
+# UPDATE TABLE 테이블명 SET 컬럼 = 바꿀값, 컬럼 = 바꿀값.... WHERE 조건 ;
+UPDATE  member SET MEM_NAME = '이순신', MEM_AGE = 20 WHERE MEM_ID ='ABC';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
