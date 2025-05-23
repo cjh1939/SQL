@@ -20,7 +20,7 @@
  
  -- EMP 테이블의 모든 컬럼을 조회 
  
- SELECT * FROM emp;
+ SELECT * FROM board;
  
  -- SELECT 로 이런 것도 조회할 수 있어요 
  

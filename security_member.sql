@@ -1,0 +1,35 @@
+
+
+CREATE TABLE security_member(
+	MEM_EMAIL VARCHAR(100) PRIMARY KEY
+	,MEM_PW VARCHAR(100) NOT NULL
+	,MEM_NAME VARCHAR(100) NOT NULL
+	,MEM_ROLL VARCHAR(30) NOT NULL
+	
+);
+
+
+SELECT * FROM security_member;
+
+DELETE FROM security_member;
+
+COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

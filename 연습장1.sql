@@ -1,4 +1,4 @@
-
+sys
 #주문정보 테이블
 CREATE TABLE ORDER_INFO(
 	ORDER_NUM INT PRIMARY KEY,		#주문번호

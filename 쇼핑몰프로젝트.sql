@@ -1,4 +1,4 @@
- # 도서 쇼핑몰 프로젝트 테이블
+team4 # 도서 쇼핑몰 프로젝트 테이블
  
  # 도서 카테고리 테이블(소설, 자기계발, IT서적...)
  CREATE TABLE BOOK_CATEGORY (
@@ -25,21 +25,95 @@ INSERT INTO book_category VALUES(3,'자기계발');
 	, CATE_CODE INT NOT NULL REFERENCES BOOK_CATEGORY (CATE_CODE) 
  );
  
+ # 도서이미지 정보 
+ CREATE TABLE BOOK_IMG(
+ 	IMG_CODE INT PRIMARY KEY AUTO_INCREMENT
+ 	,ORIGIN_FILE_NAME VARCHAR(100) NOT NULL
+ 	,ATTACHED_FILE_NAME VARCHAR(100) NOT NULL
+ 	,IS_NAME VARCHAR(3) NOT NULL # 'Y' : 메인이미지, 'N': 상세이미지
+	,BOOK_CODE INT NOT NULL REFERENCES book (BOOK_CODE) ON DELETE CASCADE	
+	#외래키 - ON DELETE CASCADE : 부모테이블(게시글) 삭제시  자식테이블(게시글 댓글) 자동 삭제
+ );
  
+ 
+  #도서번호(pk),도서명,도서가격,첨부된 상품명
+ 
+SELECT B.BOOK_CODE,  BOOK_NAME,BOOK_PRICE,ATTACHED_FILE_NAME
+FROM book B INNER JOIN book_img I	
+ON B.BOOK_CODE = I.BOOK_CODE
+WHERE IS_NAME = 'Y'
+AND B.BOOK_CODE = 1;
+ 
+ 
+ 
+ SELECT * FROM book;
+
+ SELECT * FROM BOOK_IMG;
+ 
+ DELETE FROM book;
+ 
+ COMMIT;
+
+#한번에 여러데이터 INSERT 하기 
+INSERT INTO book_img(
+	IMG_CODE
+	,ORIGIN_FILE_NAME
+	,ATTACHED_FILE_NAME
+	,IS_NAME
+	,BOOK_CODE
+)VALUES
+
+(5,'aaa.jpg','1111-2222.jpg','Y',1),
+(6,'aaa.jpg','1111-2222.jpg','N',1);
+
+
+# 모든상품에 대해서 첨부된 상품이미지명 상품명 가격명 조회 
+
+SELECT BOOK_PRICE,ATTACHED_FILE_NAME,BOOK_NAME FROM BOOK INNER JOIN book_img
+ON  BOOK.BOOK_CODE = book_img.BOOK_CODE
+WHERE IS_NAME ='Y';
+
+# book 테이블에 저장된 book_code중 가장 큰 수 조회
+SELECT IFNULL (MAX(book_CODE) , 0) + 1 FROM book;
+
+
+COMMIT;
+
+ROLLBACK;
+
+SELECT * FROM book_img;
+SELECT * FROM book;
+
+DELETE FROM book;
+
+
+#쇼핑몰 회원 테이블  
   CREATE TABLE SHOP_USER (
  	USER_ID VARCHAR(30) PRIMARY KEY
  	,USER_PW VARCHAR(30) NOT NULL
  	,USER_NAME VARCHAR(10) NOT NULL
  	,USER_EMAIL VARCHAR(30) 
  	,USER_TEL VARCHAR(16) NOT NULL UNIQUE
- 	,USER_ROLL VARCHAR(10) DEFAULT 'USER'
- 	,IS_USING VARCHAR(10) DEFAULT 'Y'
+ 	,USER_ROLL VARCHAR(10) DEFAULT 'USER' # 권한 : user-사용자, admin-관리자 
+ 	,IS_USING VARCHAR(10) DEFAULT 'Y'  # Y  : 사용중 , N : 탈퇴
  	,JOIN_DATA DATETIME DEFAULT SYSDATE()
  	
  );
  
+
  
-SELECT * FROM SHOP_USER;
+ 
+ 
+ 
+
+ 
+ # 관리자 정보 INSET
+ INSERT INTO  shop_user VALUES('admin','1111','관리자','aa@gmil.com','010-987-4321','ADMIN','Y', NOW());
+ 
+ COMMIT;
+ 
+ SELECT * FROM SHOP_USER;
+ 
  
  
  SELECT  *
@@ -58,4 +132,7 @@ ON B.CATE_CODE = R.CATE_CODE;
  FROM book_category
  WHERE CATE_NAME= '에세이';
  
+ SELECT * FROM board;
+ 
+SELECT * FROM board_REPLY;
  
